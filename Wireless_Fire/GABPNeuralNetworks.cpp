@@ -276,7 +276,7 @@ void BPNeuralNetworks::training(samples learnValueList, double rateThresholdValu
         m_learnCount++;
 
         clock_t printEndTime = clock();
-        if (PRINT_TIME_TEN < (printEndTime - printStartTime) / clock_t(6))
+        if (PRINT_TIME_TEN < (printEndTime - printStartTime) / clock_t(3))
         {
             printStartTime = printEndTime;
             cout << "The " << m_learnCount << " time training finished, finalErrorRate = " << m_dCurrentFinalRate << ", finalError = " << m_dCurrentFinalError << endl;
@@ -349,7 +349,7 @@ void BPNeuralNetworks::training(samples learnValueList, double rateThresholdValu
 		m_dCurrentFinalRate = m_dCurrentFinalRate / (learnValueCount * BP_OUTPUT_NODE);
 
 		clock_t changeRateEndTime = clock();
-		if (PRINT_TIME_TEN < (changeRateEndTime - changeRateStartTime) / clock_t(6))
+		if (PRINT_TIME_TEN < (changeRateEndTime - changeRateStartTime) / clock_t(3))
 		{
 			changeRateStartTime = changeRateEndTime;
 

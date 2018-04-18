@@ -1,13 +1,17 @@
 #include <QtCore/QCoreApplication>
-#include "ServiceDataThread.h"
-#include "ServicePortThread.h"
-
+#include "ServiceCalcThread.h"
+#include "ServiceUartThread.h"
+#include "UartCollector.h"
+#include <string.h>
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    ServiceDataThread *serviceThread = new ServiceDataThread;
-    serviceThread->start();
+	UartCollector *collector = new UartCollector;
+
+	ServiceCalcThread *serviceThread = new ServiceCalcThread;
+	serviceThread->setCollector(collector);
+	serviceThread->start();
 
     return a.exec();
 }

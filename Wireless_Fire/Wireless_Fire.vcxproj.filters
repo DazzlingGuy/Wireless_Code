@@ -35,10 +35,13 @@
     <ClCompile Include="GABPNeuralNetworks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ServiceDataThread.cpp">
+    <ClCompile Include="ServiceCalcThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ServicePortThread.cpp">
+    <ClCompile Include="ServiceUartThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UartCollector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -49,7 +52,7 @@
     <ClInclude Include="GABPConsts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ServiceDataThread.h">
+    <ClInclude Include="ServiceCalcThread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -60,7 +63,10 @@
     <QtMoc Include="FuzzyReasoning.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="ServicePortThread.h">
+    <QtMoc Include="ServiceUartThread.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="UartCollector.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

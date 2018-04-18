@@ -21,8 +21,11 @@
 #define BP_ZERO             0.f  
 #define BP_MAX              100.f
 
-#define BP_TRAIN_NUMBER  20
-#define BP_TESE_NUMBER   5
+#define BP_TRAIN_NUMBER		20
+#define BP_TESE_NUMBER		5
+
+#define BP_RATE_THRESHOLD	0.00005
+#define BP_ERROR_THRESHOLD	0.01
 
 /* GA consts */
 #define GA_POPULATION_SCALE         100
