@@ -70,6 +70,15 @@ artifacts/
 *.svclog
 *.scc
 
+# Visual Studio 2015 cache files
+.vs/
+*.obj
+*.log
+*.tlog
+*.pdb
+*.exe
+*.ilk
+
 # Chutzpah Test files
 _Chutzpah*
 
