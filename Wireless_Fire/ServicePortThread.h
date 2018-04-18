@@ -13,6 +13,7 @@
 #define _DATATHREAD_H_
 
 #include <QThread>
+#include <QString>
 #include <QMutex>
 #include <QObject>
 #include <QDebug>
@@ -21,6 +22,12 @@
 #include <QSerialPortInfo>
 #include "GABPNeuralNetworks.h"
 #include "FuzzyReasoning.h"
+
+enum PortValueType {
+    Temperature = 0,
+    COGas       = 1,
+    CGGas       = 2
+};
 
 class ServicePortThread : public QThread
 {
@@ -32,8 +39,9 @@ public:
     void run();
 
     void setBPNeuralNetworks(BPNeuralNetworks *network);
+    static double normalization(double value, PortValueType type);
+    static sample getPredictValue(QString portValue);
     samples getPredictValueList();
-    samples getPredictValueList(QString winComValue);
 
 private slots:
 	void readPortValue();
@@ -41,12 +49,17 @@ private slots:
 private:
     QSerialPort *m_pPort;
 
+    /* No use */
     QString m_sSerialName;
     QString m_sSerialDescription;
 
+    int m_nCount;
+
     bool m_bIsReadyPredict;
+
     QMutex *m_pMutex;
 
+    sample m_sPredictValue;
     samples m_oPredictValueList;
     BPNeuralNetworks *m_pBPNeuralNetworks;
 };

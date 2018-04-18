@@ -29,7 +29,7 @@ BPNeuralNetworks::BPNeuralNetworks(QObject *parent) : QObject(parent),
 
 BPNeuralNetworks::~BPNeuralNetworks()
 {
-    //TODO:
+    //TODO: Destruct
 }
 
 //Initialize the input layer
@@ -518,7 +518,7 @@ GAIndividual::GAIndividual(QObject *parent, const samples inputAndOutputList) : 
 
 GAIndividual::~GAIndividual()
 {
-    //TODO:
+    //TODO: Destruct
 }
 
 void GAIndividual::calcFitness()
@@ -682,7 +682,7 @@ GAPopulation::GAPopulation(samples inputAndOutputList) :
 
 GAPopulation::~GAPopulation()
 {
-    //TODO:
+    //TODO: Destruct
 }
 
 void GAPopulation::selection()

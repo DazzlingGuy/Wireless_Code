@@ -1,5 +1,4 @@
 #include <QtCore/QCoreApplication>
-
 #include "ServiceDataThread.h"
 #include "ServicePortThread.h"
 

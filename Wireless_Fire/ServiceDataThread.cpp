@@ -20,7 +20,7 @@ ServiceDataThread::ServiceDataThread()
 
 ServiceDataThread::~ServiceDataThread()
 {
-    //TODO:
+    //TODO: Destruct
 }
 
 samples ServiceDataThread::getLearnValueList()
