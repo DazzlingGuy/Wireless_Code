@@ -12,6 +12,8 @@
 
 #define PORT_OBTIN_COUNT 10
 
+#define ALARM_THRESHOLD 0.5
+
 #define _TEST _DEBUG_TEST
 
 static const QString g_sPortCom1         = "COM1";
@@ -27,6 +29,9 @@ ServicePortThread::ServicePortThread() :
     m_bIsReadyPredict(false),
     m_pPort(nullptr),
     m_nCount(0),
+    m_ctTime(0),
+    m_ctStart(0),
+    m_ctEnd(0),
     m_pMutex(new QMutex)
 {
 #ifdef _TEST
@@ -81,19 +86,48 @@ void ServicePortThread::readPortValue()
         if (PORT_OBTIN_COUNT > m_nCount)
         {
             sample temp = getPredictValue(portValue);
+            if (m_bHasStartTime)
+            {
+                if (ALARM_THRESHOLD < temp.inputValue.at(0) ||
+                    ALARM_THRESHOLD < temp.inputValue.at(1) ||
+                    ALARM_THRESHOLD < temp.inputValue.at(2))
+                {
+                    m_ctStart = clock();
+                    m_bHasStartTime = true;
+                }
+            }
+            if (ALARM_THRESHOLD > temp.inputValue.at(0) &&
+                ALARM_THRESHOLD > temp.inputValue.at(1) &&
+                ALARM_THRESHOLD > temp.inputValue.at(2))
+            {
+                m_ctEnd = clock();
+                m_bHasEndTime = true;
+            }
             m_sPredictValue.inputValue.at(0) += temp.inputValue.at(0);
             m_sPredictValue.inputValue.at(1) += temp.inputValue.at(1);
             m_sPredictValue.inputValue.at(2) += temp.inputValue.at(2);
         }
         else
         {
+            if (!m_bHasStartTime)
+            {
+                m_ctStart = clock();
+            }
+            if (!m_bHasEndTime || m_ctEnd < m_ctStart)
+            {
+                m_ctEnd = clock();
+            }
             QMutexLocker locker(m_pMutex);
             m_sPredictValue.inputValue.at(0) /= PORT_OBTIN_COUNT;
             m_sPredictValue.inputValue.at(1) /= PORT_OBTIN_COUNT;
             m_sPredictValue.inputValue.at(2) /= PORT_OBTIN_COUNT;
+
             m_oPredictValueList.push_back(m_sPredictValue);
 
+            m_ctTime = m_ctEnd - m_ctStart;
+
             m_bIsReadyPredict = true;
+
             m_sPredictValue.inputValue.clear();
             m_sPredictValue.outputValue.clear();
         }
@@ -113,19 +147,16 @@ sample ServicePortThread::getPredictValue(QString portValue)
     {
         if (str.contains(QString("TM")))
         {
-            //TODO: Normalization
             double value = normalization(str.replace(QString("TM"), QString("")).trimmed().toDouble(), PortValueType::Temperature);
             predictValue.inputValue.insert(predictValue.inputValue.begin(), value);
         }
         if (str.contains(QString("CO")))
         {
-            //TODO: Normalization
             double value = normalization(str.replace(QString("CO"), QString("")).trimmed().toDouble(), PortValueType::COGas);
             predictValue.inputValue.insert(predictValue.inputValue.begin() + 1, value);
         }
         if (str.contains(QString("CG")))
         {
-            //TODO: Normalization
             double value = normalization(str.replace(QString("CG"), QString("")).trimmed().toDouble(), PortValueType::CGGas);
             predictValue.inputValue.insert(predictValue.inputValue.begin() + 2, value);
         }
@@ -163,7 +194,18 @@ void ServicePortThread::setBPNeuralNetworks(BPNeuralNetworks *networks)
 
 double ServicePortThread::normalization(double value, PortValueType type)
 {
-    return 0.0;
+    //TODO: Normalization
+    switch (type)
+    {
+    case Temperature:
+        return 0.1;
+    case COGas:
+        return 0.2;
+    case CGGas:
+        return 0.3;
+    default:
+        return 0.0;
+    }
 }
 
 void ServicePortThread::run()
@@ -173,6 +215,7 @@ void ServicePortThread::run()
         if (m_pBPNeuralNetworks)
         {
 #ifndef _TEST
+            cout << "This is not test, is port mode!" << endl;
             if (m_bIsReadyPredict && 0 != m_oPredictValueList.size())
             {
 #endif
@@ -189,14 +232,20 @@ void ServicePortThread::run()
                     {
                         cout << m_oPredictValueList[i].outputValue[j] << "\t";
                     }
-
-                    double time = 8 / 10.0; //TODO: Change the file least time.
-
+#ifndef _TEST 
+                    double timeRate = m_ctTime / 10.0;
+                    if (timeRate > 1.0)
+                    {
+                        timeRate = 1.0;
+                    }
+#else
+                    double timeRate = 8 / 10.0;
+#endif
                     FuzzyRule fuzzySingleRule;
                     FuzzyReasoning *fuzzyReasoning = new FuzzyReasoning;   //Preparation of fuzzy inference rules
-                    fuzzySingleRule.isFireRate = fuzzyReasoning->normalMembership(m_oPredictValueList[i].outputValue[2]);
-                    fuzzySingleRule.likeFireRate = fuzzyReasoning->normalMembership(m_oPredictValueList[i].outputValue[1]);
-                    fuzzySingleRule.time = fuzzyReasoning->normalMembership(time);
+                    fuzzySingleRule.isFireRate      = fuzzyReasoning->normalMembership(m_oPredictValueList[i].outputValue[2]);
+                    fuzzySingleRule.likeFireRate    = fuzzyReasoning->normalMembership(m_oPredictValueList[i].outputValue[1]);
+                    fuzzySingleRule.time            = fuzzyReasoning->normalMembership(timeRate);
                     /* Change the time's PM to PB */
                     if (fuzzySingleRule.time == FUZZY_PM)
                     {
@@ -207,9 +256,13 @@ void ServicePortThread::run()
                     cout << "FinalStatus = " << fuzzySingleRule.finalStatus << endl;
                 }
 #ifndef _TEST
+                cout << "Now port mode is running!" << endl;
                 m_oPredictValueList.clear();
-                m_bIsReadyPredict = false;
-                m_nCount = 0;
+
+                m_bIsReadyPredict   = false;
+                m_bHasStartTime     = false;
+                m_bHasEndTime       = false;
+                m_nCount            = 0;
             }
 #else
                 break;

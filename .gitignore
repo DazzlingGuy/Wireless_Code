@@ -71,7 +71,9 @@ artifacts/
 *.scc
 
 # Visual Studio 2015 cache files
-.vs/
+.vs/*
+enc_temp_folder/*
+*.suo
 *.obj
 *.log
 *.tlog
