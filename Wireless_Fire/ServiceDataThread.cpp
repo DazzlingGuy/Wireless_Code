@@ -21,6 +21,7 @@ ServiceDataThread::ServiceDataThread()
 ServiceDataThread::~ServiceDataThread()
 {
     //TODO: Destruct
+    cout << "ServiceDataThread" << endl;
 }
 
 samples ServiceDataThread::getLearnValueList()
@@ -103,13 +104,14 @@ samples ServiceDataThread::getLearnValueList()
 
 void ServiceDataThread::run()
 {
+    clock_t printStartTime = clock();
+
     ServicePortThread *dataThread = new ServicePortThread;
     dataThread->start();
 
     while (1)
     {
         clock_t startGATime = clock();
-        clock_t printStartTime = clock();
         GAPopulation *population = new GAPopulation(m_oLearnValueList);
         for (int i = 0; i < GA_GENERATIONS_NUMBER; i++)
         {
@@ -119,27 +121,22 @@ void ServiceDataThread::run()
             population->mutate();
 
             clock_t printEndTime = clock();
-            if (PRINT_TIME_TEN < printEndTime - printStartTime)
+            if (PRINT_TIME_TEN < (printEndTime - printStartTime) / clock_t(2))
             {
                 printStartTime = printEndTime;
                 std::cout << "the " << i << "th generation finish !" << std::endl;
             }
         }
-        population->setBestIndividual();
-
-        /* Print out the best fitness */
-        double fitness = population->getBestFitness();
-        std::cout << "the best generation fitness is = " << fitness << std::endl;
-
-        /* Print out the GA algorithm spend time */
+        population->setBestIndividual();                
         clock_t endGATime = clock();
-        cout << "GA algorithm spend " << (endGATime - startGATime) / CLOCKS_PER_SEC << " s" << endl;
 
         clock_t startBPTime = clock();
         BPNeuralNetworks *neuralNetwork = population->getBestIndividual();
         neuralNetwork->training(m_oLearnValueList, 0.00005, 0.01, true);
         clock_t endBPTime = clock();
-        cout << "BP Neural Network spend " << (endBPTime - startBPTime) / CLOCKS_PER_SEC << " s" << endl;   //Print out the BP Neural Network spend time
+
+        cout << "GA algorithm spend "       << (endGATime - startGATime) / CLOCKS_PER_SEC << " s" << endl;  //Print out the GA algorithm spend time
+        cout << "BP Neural Network spend "  << (endBPTime - startBPTime) / CLOCKS_PER_SEC << " s" << endl;  //Print out the BP Neural Network spend time
         
         /* Get server status, restart if not successful */
         if (!neuralNetwork->getServiceStatus())

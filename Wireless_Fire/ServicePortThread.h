@@ -57,6 +57,7 @@ private:
     clock_t m_ctStart;
     clock_t m_ctEnd;
 
+    bool m_bIsServiceRun;
     bool m_bIsReadyPredict;
     bool m_bHasStartTime;
     bool m_bHasEndTime;

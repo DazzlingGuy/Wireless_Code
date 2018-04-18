@@ -26,13 +26,16 @@ using namespace std;
 
 ServicePortThread::ServicePortThread() : 
     m_pBPNeuralNetworks(nullptr),
+    m_pMutex(new QMutex),
+    m_bIsServiceRun(false),
     m_bIsReadyPredict(false),
+    m_bHasStartTime(false),
+    m_bHasEndTime(false),
     m_pPort(nullptr),
     m_nCount(0),
     m_ctTime(0),
     m_ctStart(0),
-    m_ctEnd(0),
-    m_pMutex(new QMutex)
+    m_ctEnd(0)
 {
 #ifdef _TEST
     m_oPredictValueList = getPredictValueList();
@@ -74,6 +77,7 @@ ServicePortThread::ServicePortThread() :
 ServicePortThread::~ServicePortThread()
 {
     //TODO: Destruct
+    cout << "ServicePortThread" << endl;
 }
 
 void ServicePortThread::readPortValue()
@@ -210,12 +214,17 @@ double ServicePortThread::normalization(double value, PortValueType type)
 
 void ServicePortThread::run()
 {
+    cout << "Waiting for service begin!" << endl;
     while(1)
     {
         if (m_pBPNeuralNetworks)
         {
+            if (!m_bIsServiceRun)
+            {
+                m_bIsServiceRun = true;
+                cout << "Congratulation, service is running!" << endl;
+            }
 #ifndef _TEST
-            cout << "This is not test, is port mode!" << endl;
             if (m_bIsReadyPredict && 0 != m_oPredictValueList.size())
             {
 #endif
@@ -242,7 +251,7 @@ void ServicePortThread::run()
                     double timeRate = 8 / 10.0;
 #endif
                     FuzzyRule fuzzySingleRule;
-                    FuzzyReasoning *fuzzyReasoning = new FuzzyReasoning;   //Preparation of fuzzy inference rules
+                    FuzzyReasoning *fuzzyReasoning  = new FuzzyReasoning;   //Preparation of fuzzy inference rules
                     fuzzySingleRule.isFireRate      = fuzzyReasoning->normalMembership(m_oPredictValueList[i].outputValue[2]);
                     fuzzySingleRule.likeFireRate    = fuzzyReasoning->normalMembership(m_oPredictValueList[i].outputValue[1]);
                     fuzzySingleRule.time            = fuzzyReasoning->normalMembership(timeRate);
@@ -256,7 +265,6 @@ void ServicePortThread::run()
                     cout << "FinalStatus = " << fuzzySingleRule.finalStatus << endl;
                 }
 #ifndef _TEST
-                cout << "Now port mode is running!" << endl;
                 m_oPredictValueList.clear();
 
                 m_bIsReadyPredict   = false;
@@ -267,11 +275,6 @@ void ServicePortThread::run()
 #else
                 break;
 #endif // _Test
-        }
-        else
-        {
-            cout << "Waiting for service begin !" << endl;
-            sleep(3);
         }
     }
 }
