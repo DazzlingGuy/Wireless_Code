@@ -19,9 +19,8 @@ moc_*.cpp
 *.opensdf
 *.sdf
 *.ipch
-*.vcxproj
 *.filters
-*.user
+*.vcxproj.user
 *.exe
 
 #java maven
