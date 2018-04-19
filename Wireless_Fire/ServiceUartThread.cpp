@@ -8,7 +8,6 @@
 */
 
 #include "ServiceUartThread.h"
-#include "UartCollector.h"
 
 using namespace std;
 
@@ -52,6 +51,11 @@ void ServiceUartThread::run()
 
                 cout << "Congratulation, service is running!" << endl;
             }
+
+#ifdef _TEST
+            emit m_pCollector->testSignal();
+#endif //_TEST
+
             if (m_pCollector->getPredictStatus())
             {
                 QMutexLocker locker(m_pMutex);
@@ -70,12 +74,15 @@ void ServiceUartThread::run()
                     {
                         cout << predictValueList[i].outputValue[j] << "\t";
                     }
-
+#ifndef _TEST
                     double timeRate = m_pCollector->getTime() / 10.0;
                     if (timeRate > 1.0)
                     {
                         timeRate = 1.0;
                     }
+#else
+                    double timeRate = 8 / 10.0;
+#endif  //_TEST
 
                     FuzzyRule fuzzySingleRule;
                     FuzzyReasoning *fuzzyReasoning  = new FuzzyReasoning;

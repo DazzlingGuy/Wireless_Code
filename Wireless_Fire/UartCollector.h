@@ -16,6 +16,19 @@
 #include <QSerialPortInfo>
 #include "GABPNeuralNetworks.h"
 
+#define UART_OBTAIN_COUNT	 10
+#define ALARM_THRESHOLD		 0.5
+
+//#define _TEST __TEST
+
+static const QString g_sPortCom1 = "COM1";
+static const QString g_sPortCom2 = "COM2";
+static const QString g_sPortCom3 = "COM3";
+static const QString g_sPortCom4 = "COM4";
+
+static const QString g_sCoordinatorPortDescription  = "USB-SERIAL CH341A";
+static const QString g_sTerminalPortDescription     = "USB Serial Port";
+
 /* Type of data collected */
 enum UartValueType {
 	Temperature = 0,
@@ -51,11 +64,17 @@ public:
 	void clearPredictValueList();
 
 private slots:
-	void readPortValue();
+	void readUartValue();
+
+#ifdef _TEST
+    void testUartValue();
+
+signals:
+    void testSignal();
+#endif //_TEST
 
 private:
 	int m_nCount;
-
 	QSerialPort * m_pPort;
 
 	/* No use */

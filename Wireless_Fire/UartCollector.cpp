@@ -7,18 +7,8 @@
 * @Copyright (c) 2018-2019 rensl Corporation
 */
 
+#include <QThread>
 #include "UartCollector.h"
-
-#define UART_OBTAIN_COUNT	 10
-#define ALARM_THRESHOLD		 0.5
-
-static const QString g_sPortCom1 = "COM1";
-static const QString g_sPortCom2 = "COM2";
-static const QString g_sPortCom3 = "COM3";
-static const QString g_sPortCom4 = "COM4";
-
-static const QString g_sCoordinatorPortDescription	= "USB-SERIAL CH341A";
-static const QString g_sTerminalPortDescription		= "USB Serial Port";
 
 UartCollector::UartCollector() :
 	m_bIsReadyPredict(false),
@@ -60,15 +50,43 @@ UartCollector::UartCollector() :
 			qDebug() << "Open Failed !";
 		}
 
-		QObject::connect(m_pPort, SIGNAL(readyRead()), this, SLOT(readPortValue()));
+		QObject::connect(m_pPort, SIGNAL(readyRead()), this, SLOT(readUartValue()));
 	}
+
+#ifdef _TEST
+    QObject::connect(this, SIGNAL(testSignal()), this, SLOT(testUartValue()));
+#endif //_TEST
 }
 
 UartCollector::~UartCollector()
 {
 }
 
-void UartCollector::readPortValue()
+#ifdef _TEST
+void UartCollector::testUartValue()
+{
+    QThread::sleep(10);
+
+    doubles sampleInput[BP_TESE_NUMBER];
+    sampleInput[0].push_back(1);        sampleInput[0].push_back(0.2);      sampleInput[0].push_back(0.9);  //except value 0, 0.05, 0.95
+    sampleInput[1].push_back(0.9);      sampleInput[1].push_back(0.23);     sampleInput[1].push_back(1);    //except value 0, 0.05, 0.95
+    sampleInput[2].push_back(0);        sampleInput[2].push_back(0);        sampleInput[2].push_back(0);    //custom value
+    sampleInput[3].push_back(0.5);      sampleInput[3].push_back(0.5);      sampleInput[3].push_back(0.5);  //custom value
+    sampleInput[4].push_back(1);        sampleInput[4].push_back(1);        sampleInput[4].push_back(1);    //custom value
+    sampleInput[5].push_back(0.95);     sampleInput[5].push_back(0.2);      sampleInput[5].push_back(0.75); //except value 0.03, 0.1, 0.85
+    samples learnValueList;
+    for (int i = 0; i < BP_TESE_NUMBER; i++)
+    {
+        sample sampleInAndOut;
+        sampleInAndOut.inputValue = sampleInput[i];
+        m_oPredictValueList.push_back(sampleInAndOut);
+    }
+
+    m_bIsReadyPredict = true;
+}
+#endif //_TEST
+
+void UartCollector::readUartValue()
 {
 	if (!m_bIsReadyPredict && m_bServiceRun)
 	{
@@ -119,6 +137,7 @@ void UartCollector::readPortValue()
                 m_sPredictValue.inputValue[0] = m_sPredictValue.inputValue.at(0) / UART_OBTAIN_COUNT;
                 m_sPredictValue.inputValue[1] = m_sPredictValue.inputValue.at(1) / UART_OBTAIN_COUNT;
                 m_sPredictValue.inputValue[2] = m_sPredictValue.inputValue.at(2) / UART_OBTAIN_COUNT;
+
 				m_oPredictValueList.push_back(m_sPredictValue);
 
 				m_ctTime = m_ctEnd - m_ctStart;
@@ -126,11 +145,11 @@ void UartCollector::readPortValue()
 				m_bIsReadyPredict = true;
 
 				m_sPredictValue.inputValue.clear();
-				m_sPredictValue.outputValue.clear();
+                m_sPredictValue.outputValue.clear(); 
 			}
-			m_nCount++;
+            m_nCount++;
 		}
-	}
+    }
 }
 
 sample UartCollector::getPredictValue(QString portValue)
