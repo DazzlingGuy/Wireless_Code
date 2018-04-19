@@ -976,9 +976,17 @@ void GAPopulation::setBestIndividual()
     }
     for (int i = 1; i < GA_POPULATION_SCALE; i++)
     {
-        if (m_oPopulationGroup[i] != m_oPopulationGroup[maxflag])
+        if (m_oPopulationGroup[i] != m_oPopulationGroup[maxflag] && nullptr != m_oPopulationGroup[i])
         {
             delete m_oPopulationGroup[i];
+			for (int j = i + 1; j < GA_POPULATION_SCALE; j++)
+			{
+				if (m_oPopulationGroup[i] == m_oPopulationGroup[j])
+				{
+					m_oPopulationGroup[j] = nullptr;
+				}
+			}
+			m_oPopulationGroup[i] = nullptr;
         }
     }
     m_pBestGABPNeuralNetwork = m_oPopulationGroup[maxflag]->getNetworks();

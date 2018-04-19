@@ -84,6 +84,7 @@ void ServiceUartThread::run()
                     {
                         timeRate = 1.0;
                     }
+					cout << "time = " << m_pCollector->getTime() << "\t";
 #else
                     double timeRate = 8 / 10.0;
 #endif  //_TEST
@@ -99,6 +100,10 @@ void ServiceUartThread::run()
                     }
                     fuzzyReasoning->finalDecision(fuzzySingleRule);    //Final decision is get the fuzzy rules' final status to current final status.
                     qDebug() << "FinalStatus = " << fuzzySingleRule.finalStatus;
+
+					cout << endl;
+					cout << endl;
+
                     delete fuzzyReasoning;
                 }
 

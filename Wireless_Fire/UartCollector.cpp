@@ -140,7 +140,7 @@ void UartCollector::readUartValue()
 
 				m_oPredictValueList.push_back(m_sPredictValue);
 
-				m_ctTime = m_ctEnd - m_ctStart;
+				m_ctTime = (m_ctEnd - m_ctStart) / CLOCKS_PER_SEC;
 
 				m_bIsReadyPredict = true;
 
@@ -167,14 +167,14 @@ sample UartCollector::getPredictValue(QString portValue)
 			double value = normalization(str.replace(QString("TM"), QString("")).trimmed().toDouble(), UartValueType::Temperature);
 			predictValue.inputValue.insert(predictValue.inputValue.begin(), value);
 		}
-		if (str.contains(QString("CO")))
-		{
-			double value = normalization(str.replace(QString("CO"), QString("")).trimmed().toDouble(), UartValueType::COGas);
-			predictValue.inputValue.insert(predictValue.inputValue.begin() + 1, value);
-		}
 		if (str.contains(QString("CG")))
 		{
 			double value = normalization(str.replace(QString("CG"), QString("")).trimmed().toDouble(), UartValueType::CGGas);
+			predictValue.inputValue.insert(predictValue.inputValue.begin() + 1, value);
+		}
+		if (str.contains(QString("CO")))
+		{
+			double value = normalization(str.replace(QString("CO"), QString("")).trimmed().toDouble(), UartValueType::COGas);
 			predictValue.inputValue.insert(predictValue.inputValue.begin() + 2, value);
 		}
 	}
@@ -202,13 +202,13 @@ double UartCollector::normalization(double value, UartValueType type)
 	switch (type)
 	{
 	case Temperature:
-		result = double((value - 20) / (125 - 20));
-		break;
-	case COGas:
-		result = double((value - 45) / (127 - 45));
+		result = double(value / 125.0);
 		break;
 	case CGGas:
-		result = double((value - 25) / (127 - 25));
+		result = double(value / 127.0);
+		break;
+	case COGas:
+		result = double(value / 127.0);
 		break;
 	default:
 		result = 0.0;

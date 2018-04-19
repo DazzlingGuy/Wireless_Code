@@ -17,7 +17,7 @@ FuzzyReasoning::FuzzyReasoning()
                                                                       { FUZZY_PS, FUZZY_PS, FUZZY_PB, FUZZY_PS },
                                                                       { FUZZY_PS, FUZZY_PM, FUZZY_PB, FUZZY_PB },
                                                                       { FUZZY_PS, FUZZY_PB, FUZZY_PB, FUZZY_PB },
-                                                                      { FUZZY_PS, FUZZY_PS, FUZZY_PS, FUZZY_PS },
+                                                                      { FUZZY_PM, FUZZY_PS, FUZZY_PS, FUZZY_PS },
                                                                       { FUZZY_PM, FUZZY_PM, FUZZY_PS, FUZZY_PB },
                                                                       { FUZZY_PM, FUZZY_PS, FUZZY_PB, FUZZY_PB },
                                                                       { FUZZY_PM, FUZZY_PM, FUZZY_PB, FUZZY_PB },
