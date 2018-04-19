@@ -71,7 +71,10 @@ artifacts/
 *.scc
 
 # Visual Studio 2015 cache files
-\.vs/
+v14/
+v15/
+.vs/
+Wireless_Fire/GeneratedFiles/Debug/*.cpp
 *.suo
 *.obj
 *.log
@@ -79,6 +82,10 @@ artifacts/
 *.pdb
 *.exe
 *.ilk
+*.db
+*.vcxproj
+*.filters
+*.user
 
 # Chutzpah Test files
 _Chutzpah*

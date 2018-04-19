@@ -4,7 +4,6 @@
 * @brief    GABPNeuralNetworks
 * @author   Ren SiLin
 * @date     2018-03-22
-* @modify   2018-03-25
 * @remarks
 * @Copyright (c) 2018-2019 rensl Corporation
 */

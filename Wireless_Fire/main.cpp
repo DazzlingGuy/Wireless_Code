@@ -1,8 +1,7 @@
 #include <QtCore/QCoreApplication>
 #include "ServiceCalcThread.h"
-#include "ServiceUartThread.h"
 #include "UartCollector.h"
-#include <string.h>
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);

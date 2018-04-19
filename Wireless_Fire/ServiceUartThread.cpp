@@ -1,9 +1,8 @@
 /*
-* @file     ServicePortThread.cpp
-* @brief    ServicePortThread
+* @file     ServiceUartThread.cpp
+* @brief    ServiceUartThread
 * @author   Ren SiLin
 * @date     2018-04-15
-* @modify   2018-04-15
 * @remarks
 * @Copyright (c) 2018-2019 rensl Corporation
 */
@@ -46,14 +45,17 @@ void ServiceUartThread::run()
             if (!m_bIsServiceRun)
 			{
 				m_bIsServiceRun = true;
+
+                /* Set the mutex & bool value for the serial port collector */
 				m_pCollector->setMutex(m_pMutex);
 				m_pCollector->setServiceStatus(m_bIsServiceRun);
+
                 cout << "Congratulation, service is running!" << endl;
             }
-			samples predictValueList = m_pCollector->getPredictValueList();
-            if (m_pCollector->getPredictStatus() && 0 != predictValueList.size())
+            if (m_pCollector->getPredictStatus())
             {
                 QMutexLocker locker(m_pMutex);
+                samples predictValueList = m_pCollector->getPredictValueList();
                 m_pBPNeuralNetworks->predict(predictValueList);
 				for (int i = 0; i < predictValueList.size(); i++)
                 {
@@ -76,16 +78,14 @@ void ServiceUartThread::run()
                     }
 
                     FuzzyRule fuzzySingleRule;
-                    FuzzyReasoning *fuzzyReasoning  = new FuzzyReasoning;   //Preparation of fuzzy inference rules
+                    FuzzyReasoning *fuzzyReasoning  = new FuzzyReasoning;
                     fuzzySingleRule.isFireRate      = fuzzyReasoning->normalMembership(predictValueList[i].outputValue[2]);
                     fuzzySingleRule.likeFireRate    = fuzzyReasoning->normalMembership(predictValueList[i].outputValue[1]);
                     fuzzySingleRule.time            = fuzzyReasoning->normalMembership(timeRate);
-                    /* Change the time's PM to PB */
                     if (fuzzySingleRule.time == FUZZY_PM)
                     {
-                        fuzzySingleRule.time = FUZZY_PB;
+                        fuzzySingleRule.time = FUZZY_PB;    //Change the time's PM to PB
                     }
-
                     fuzzyReasoning->finalDecision(fuzzySingleRule);    //Final decision is get the fuzzy rules' final status to current final status.
                     cout << "FinalStatus = " << fuzzySingleRule.finalStatus << endl;
                 }

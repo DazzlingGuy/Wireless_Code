@@ -4,7 +4,6 @@
 * @brief    ServiceThread
 * @author   Ren SiLin
 * @date     2018-04-15
-* @modify   2018-04-15
 * @remarks
 * @Copyright (c) 2018-2019 rensl Corporation
 */
@@ -15,7 +14,6 @@
 #include <QThread>
 #include "GABPNeuralNetworks.h"
 #include "UartCollector.h"
-#include "FuzzyReasoning.h"
 
 class ServiceCalcThread : public QThread
 {

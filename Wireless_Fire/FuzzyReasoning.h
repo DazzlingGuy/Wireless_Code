@@ -4,7 +4,6 @@
 * @brief    FuzzyReasoning
 * @author   Ren SiLin
 * @date     2018-04-7
-* @modify   2018-04-9
 * @remarks
 * @Copyright (c) 2018-2019 rensl Corporation
 */

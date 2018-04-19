@@ -4,7 +4,6 @@
 * @brief    ServiceThread
 * @author   Ren SiLin
 * @date     2018-04-15
-* @modify   2018-04-15
 * @remarks
 * @Copyright (c) 2018-2019 rensl Corporation
 */
@@ -149,6 +148,7 @@ void ServiceCalcThread::run()
         }
         else
 		{
+            /* Service begin, set the collector & BP network */
 			uartThread->setCollector(m_pCollector);
             uartThread->setBPNeuralNetworks(neuralNetwork);
             break;

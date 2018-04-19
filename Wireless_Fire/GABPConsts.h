@@ -4,7 +4,6 @@
 * @brief    Define the BP Consts
 * @author   Ren SiLin
 * @date     2018-03-22
-* @modify   2018-03-25
 * @remarks  
 * @Copyright (c) 2018-2019 rensl Corporation
 */
@@ -24,7 +23,7 @@
 #define BP_TRAIN_NUMBER		20
 #define BP_TESE_NUMBER		5
 
-#define BP_RATE_THRESHOLD	0.00005
+#define BP_RATE_THRESHOLD	0.0001
 #define BP_ERROR_THRESHOLD	0.01
 
 /* GA consts */

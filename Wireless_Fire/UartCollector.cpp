@@ -1,6 +1,15 @@
+/*
+* @file     UartCollector.cpp
+* @brief    UartCollector
+* @author   Ren SiLin
+* @date     2018-04-18
+* @remarks
+* @Copyright (c) 2018-2019 rensl Corporation
+*/
+
 #include "UartCollector.h"
 
-#define PORT_OBTIN_COUNT	 10
+#define UART_OBTAIN_COUNT	 10
 #define ALARM_THRESHOLD		 0.5
 
 static const QString g_sPortCom1 = "COM1";
@@ -21,10 +30,12 @@ UartCollector::UartCollector() :
 	m_ctTime(0),
 	m_ctStart(0),
 	m_ctEnd(0)
-{
+{ 
+    /* init the m_sPredictValue */
 	m_sPredictValue.inputValue.clear();
 	m_sPredictValue.outputValue.clear();
 
+    /* According to the description, initialize the serial port information */
 	QSerialPortInfo *serialInfo = new QSerialPortInfo();
 	QList<QSerialPortInfo> serialList = serialInfo->availablePorts();
 	foreach(QSerialPortInfo winPort, serialList)
@@ -59,13 +70,12 @@ UartCollector::~UartCollector()
 
 void UartCollector::readPortValue()
 {
-	//The prescribed form is TM25.00|CO25.00|CG25.00, then do the split.
 	if (!m_bIsReadyPredict && m_bServiceRun)
 	{
 		QString portValue(m_pPort->readAll());
 		if (isValidValue(portValue))
 		{
-			if (PORT_OBTIN_COUNT > m_nCount)
+			if (UART_OBTAIN_COUNT > m_nCount)
 			{
 				sample temp = getPredictValue(portValue);
 				if (!m_bHasStartTime)
@@ -106,10 +116,9 @@ void UartCollector::readPortValue()
 				}
 
 				QMutexLocker locker(m_pMutex);
-
-				m_sPredictValue.inputValue.at(0) /= PORT_OBTIN_COUNT;
-				m_sPredictValue.inputValue.at(1) /= PORT_OBTIN_COUNT;
-				m_sPredictValue.inputValue.at(2) /= PORT_OBTIN_COUNT;
+                m_sPredictValue.inputValue[0] = m_sPredictValue.inputValue.at(0) / UART_OBTAIN_COUNT;
+                m_sPredictValue.inputValue[1] = m_sPredictValue.inputValue.at(1) / UART_OBTAIN_COUNT;
+                m_sPredictValue.inputValue[2] = m_sPredictValue.inputValue.at(2) / UART_OBTAIN_COUNT;
 				m_oPredictValueList.push_back(m_sPredictValue);
 
 				m_ctTime = m_ctEnd - m_ctStart;
@@ -131,6 +140,7 @@ sample UartCollector::getPredictValue(QString portValue)
 
 	sample predictValue;
 
+    /* The split data is normalized into the sample */
 	foreach(QString str, predictStrList)
 	{
 		if (str.contains(QString("TM")))
@@ -157,6 +167,7 @@ bool UartCollector::isValidValue(QString portValue)
 {
 	bool bRes = true;
 
+    /* Serial data requirements are not less than 17 bits, two reserved */
 	if (17 > portValue.size() || 20 < portValue.size())
 	{
 		bRes = false;
@@ -167,7 +178,7 @@ bool UartCollector::isValidValue(QString portValue)
 
 double UartCollector::normalization(double value, UartValueType type)
 {
-	//TODO: Normalization
+	//Normalization, todo include optimize normalization rules
 	double result(0.0);
 	switch (type)
 	{

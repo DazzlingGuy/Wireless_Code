@@ -1,4 +1,12 @@
 #pragma once
+/*
+* @file     UartCollector.h
+* @brief    UartCollector
+* @author   Ren SiLin
+* @date     2018-04-18
+* @remarks
+* @Copyright (c) 2018-2019 rensl Corporation
+*/
 
 #include <QObject>
 #include <QMutex>
@@ -6,13 +14,12 @@
 #include <QByteArray>
 #include <QSerialPort>
 #include <QSerialPortInfo>
-
 #include "GABPNeuralNetworks.h"
-#include "UartCollector.h"
 
+/* Type of data collected */
 enum UartValueType {
 	Temperature = 0,
-	COGas = 1,
+	COGas = 1,          
 	CGGas = 2
 };
 
@@ -23,10 +30,10 @@ public:
 	UartCollector();
 	~UartCollector();
 public:
-	bool isValidValue(QString portValue);
-	static double normalization(double value, UartValueType type);
-	static sample getPredictValue(QString portValue);
+	bool isValidValue(QString portValue);   //Check the value valid
+	double normalization(double value, UartValueType type); //value normalization
 
+    /* Set corresponding flags value */
 	bool getStartTimeStatus();
 	void setStartTimeStatus(bool status);
 	bool getEndTimeStatus();
@@ -34,13 +41,13 @@ public:
 	bool getPredictStatus();
 	void setPredictStatus(bool status);
 	void setServiceStatus(bool status);
-
 	void setCount(int count);
 	void setMutex(QMutex *mutex);
 	
-	clock_t getTime();
+	clock_t getTime();  //Get the last time
 
-	samples getPredictValueList();
+	sample getPredictValue(QString portValue);
+    samples getPredictValueList();
 	void clearPredictValueList();
 
 private slots:
@@ -59,8 +66,8 @@ private:
 	clock_t m_ctStart;
 	clock_t m_ctEnd;
 
+    bool m_bServiceRun;
 	bool m_bIsReadyPredict;
-	bool m_bServiceRun;
 	bool m_bHasStartTime;
 	bool m_bHasEndTime;
 

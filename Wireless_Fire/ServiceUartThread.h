@@ -1,10 +1,9 @@
 #pragma once
 /*
-* @file     DataThread.h
-* @brief    DataThread
+* @file     ServiceUartThread.h
+* @brief    ServiceUartThread
 * @author   Ren SiLin
 * @date     2018-04-15
-* @modify   2018-04-15
 * @remarks
 * @Copyright (c) 2018-2019 rensl Corporation
 */
@@ -28,7 +27,6 @@ public:
     void run();
 
 	void setCollector(UartCollector *);
-
     void setBPNeuralNetworks(BPNeuralNetworks *network);
 
 private:
