@@ -7,6 +7,8 @@
 * @remarks
 * @Copyright (c) 2018-2019 rensl Corporation
 */
+#ifndef _UARTCOLLECTOR_H_
+#define _UARTCOLLECTOR_H_
 
 #include <QObject>
 #include <QMutex>
@@ -96,3 +98,4 @@ private:
 	samples m_oPredictValueList;
 };
 
+#endif  //_UARTCOLLECTOR_H_

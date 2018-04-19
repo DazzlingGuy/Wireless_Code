@@ -29,7 +29,6 @@ FuzzyReasoning::FuzzyReasoning()
 
 FuzzyReasoning::~FuzzyReasoning()
 {
-    //TODO: Destruct
 }
 
 double FuzzyReasoning::triangleMembership(const double value, const double min, const double middle, const double max)

@@ -22,6 +22,9 @@ ServiceUartThread::ServiceUartThread() :
 ServiceUartThread::~ServiceUartThread()
 {
     //TODO: Destruct
+    delete m_pBPNeuralNetworks;
+    delete m_pCollector;
+    delete m_pMutex;
 }
 
 void ServiceUartThread::setCollector(UartCollector *collector)
@@ -36,7 +39,7 @@ void ServiceUartThread::setBPNeuralNetworks(BPNeuralNetworks *networks)
 
 void ServiceUartThread::run()
 {
-    cout << "Waiting for service begin!" << endl;
+    qDebug() << "Waiting for service begin!";
     while(1)
     {
         if (m_pBPNeuralNetworks)
@@ -49,7 +52,7 @@ void ServiceUartThread::run()
 				m_pCollector->setMutex(m_pMutex);
 				m_pCollector->setServiceStatus(m_bIsServiceRun);
 
-                cout << "Congratulation, service is running!" << endl;
+                qDebug() << "Congratulation, service is running!";
             }
 
 #ifdef _TEST
@@ -95,7 +98,7 @@ void ServiceUartThread::run()
                         fuzzySingleRule.time = FUZZY_PB;    //Change the time's PM to PB
                     }
                     fuzzyReasoning->finalDecision(fuzzySingleRule);    //Final decision is get the fuzzy rules' final status to current final status.
-                    cout << "FinalStatus = " << fuzzySingleRule.finalStatus << endl;
+                    qDebug() << "FinalStatus = " << fuzzySingleRule.finalStatus;
                     delete fuzzyReasoning;
                 }
 

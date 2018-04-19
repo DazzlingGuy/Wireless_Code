@@ -28,7 +28,35 @@ BPNeuralNetworks::BPNeuralNetworks(QObject *parent) : QObject(parent),
 
 BPNeuralNetworks::~BPNeuralNetworks()
 {
-    //TODO: Destruct
+    delete m_pParams;
+
+    for (int i = 0; i < BP_INPUT_NODE; i++)
+    {
+        delete m_pInputLayer[i];
+    }
+
+    for (int i = 0; i < BP_HIDDEN_LAYER; i++)
+    {
+        if (i == BP_HIDDEN_LAYER - 1)
+        {
+            for (int j = 0; j < BP_HIDDEN_NODE; j++)
+            {
+                delete m_pHiddenLayer[i][j];
+            }
+        }
+        else
+        {
+            for (int j = 0; j < BP_HIDDEN_NODE; j++)
+            {
+                delete m_pHiddenLayer[i][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < BP_OUTPUT_NODE; i++)
+    {
+        delete m_pOutputLayer[i];
+    }
 }
 
 //Initialize the input layer
@@ -278,7 +306,7 @@ void BPNeuralNetworks::training(samples learnValueList, double rateThresholdValu
         if (PRINT_TIME_TEN < (printEndTime - printStartTime) / clock_t(3))
         {
             printStartTime = printEndTime;
-            cout << "The " << m_learnCount << " time training finished, finalErrorRate = " << m_dCurrentFinalRate << ", finalError = " << m_dCurrentFinalError << endl;
+            qDebug() << "The " << m_learnCount << " time training finished, finalErrorRate = " << m_dCurrentFinalRate << ", finalError = " << m_dCurrentFinalError;
         }
 
         m_dCurrentFinalRate = BP_ZERO;
@@ -372,7 +400,8 @@ void BPNeuralNetworks::training(samples learnValueList, double rateThresholdValu
 			m_dPreFinalRate  = m_dCurrentFinalRate;
 		}
 	}
-    //cout << "End training" << endl;
+
+    qDebug() << "End training";
 }
 
 void BPNeuralNetworks::predict(samples& testValueList)
@@ -517,7 +546,7 @@ GAIndividual::GAIndividual(QObject *parent, const samples inputAndOutputList) : 
 
 GAIndividual::~GAIndividual()
 {
-    //TODO: Destruct
+    delete m_pGABPNeuralNetwork;
 }
 
 void GAIndividual::calcFitness()
@@ -681,7 +710,10 @@ GAPopulation::GAPopulation(samples inputAndOutputList) :
 
 GAPopulation::~GAPopulation()
 {
-    //TODO: Destruct
+    for (int i = 0; i < GA_POPULATION_SCALE; i++)
+    {
+        delete m_oPopulationGroup[i];
+    }
 }
 
 void GAPopulation::selection()
@@ -724,7 +756,7 @@ void GAPopulation::selection()
             }
 			if (j >= GA_POPULATION_SCALE)
 			{
-				std::cout << "rand error!" << std::endl;
+                qDebug() << "rand error!";
 			}
         }
 		tempIndividualGroup[i] = m_oPopulationGroup[j];
@@ -940,6 +972,13 @@ void GAPopulation::setBestIndividual()
         {
 
             maxflag = i;
+        }
+    }
+    for (int i = 1; i < GA_POPULATION_SCALE; i++)
+    {
+        if (m_oPopulationGroup[i] != m_oPopulationGroup[maxflag])
+        {
+            delete m_oPopulationGroup[i];
         }
     }
     m_pBestGABPNeuralNetwork = m_oPopulationGroup[maxflag]->getNetworks();

@@ -19,7 +19,7 @@ ServiceCalcThread::ServiceCalcThread()
 
 ServiceCalcThread::~ServiceCalcThread()
 {
-    //TODO: Destruct
+    qDebug() << "Service calculator is finished, now begin read uart value";
 }
 
 void ServiceCalcThread::setCollector(UartCollector *collector)
@@ -127,23 +127,23 @@ void ServiceCalcThread::run()
             if (PRINT_TIME_TEN < (printEndTime - printStartTime) / clock_t(2))
             {
                 printStartTime = printEndTime;
-                std::cout << "the " << i << "th generation finish !" << std::endl;
+                qDebug() << "the " << i << "th generation finish !";
             }
         }
         population->setBestIndividual();                
 		clock_t endGATime = clock();
-		cout << "GA algorithm spend " << (endGATime - startGATime) / CLOCKS_PER_SEC << " s" << endl;  //Print out the GA algorithm spend time
+        qDebug() << "GA algorithm spend " << (endGATime - startGATime) / CLOCKS_PER_SEC << " s";  //Print out the GA algorithm spend time
 
         clock_t startBPTime = clock();
         BPNeuralNetworks *neuralNetwork = population->getBestIndividual();
         neuralNetwork->training(m_oLearnValueList, BP_RATE_THRESHOLD , BP_ERROR_THRESHOLD, true);
         clock_t endBPTime = clock();
-		cout << "BP Neural Network spend "  << (endBPTime - startBPTime) / CLOCKS_PER_SEC << " s" << endl;  //Print out the BP Neural Network spend time
+        qDebug() << "BP Neural Network spend "  << (endBPTime - startBPTime) / CLOCKS_PER_SEC << " s";  //Print out the BP Neural Network spend time
         
         /* Get server status, restart if not successful */
         if (!neuralNetwork->getServiceStatus())
         {
-            cout << "Service params error! Reboot the service now!" << endl;
+            qDebug() << "Service params error! Reboot the service now!";
             delete population;
         }
         else
