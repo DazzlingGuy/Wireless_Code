@@ -25,6 +25,9 @@ ServiceUartThread::~ServiceUartThread()
     delete m_pBPNeuralNetworks;
     delete m_pCollector;
     delete m_pMutex;
+	m_pBPNeuralNetworks = nullptr;
+	m_pCollector = nullptr;
+	m_pMutex = nullptr;
 }
 
 void ServiceUartThread::setCollector(UartCollector *collector)
@@ -105,6 +108,7 @@ void ServiceUartThread::run()
 					cout << endl;
 
                     delete fuzzyReasoning;
+					fuzzyReasoning = nullptr;
                 }
 
 				m_pCollector->clearPredictValueList();

@@ -145,6 +145,7 @@ void ServiceCalcThread::run()
         {
             qDebug() << "Service params error! Reboot the service now!";
             delete population;
+			population = nullptr;
         }
         else
 		{

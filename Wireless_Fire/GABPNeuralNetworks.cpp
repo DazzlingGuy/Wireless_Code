@@ -29,10 +29,12 @@ BPNeuralNetworks::BPNeuralNetworks(QObject *parent) : QObject(parent),
 BPNeuralNetworks::~BPNeuralNetworks()
 {
     delete m_pParams;
+	m_pParams = nullptr;
 
     for (int i = 0; i < BP_INPUT_NODE; i++)
     {
         delete m_pInputLayer[i];
+		m_pInputLayer[i] = nullptr;
     }
 
     for (int i = 0; i < BP_HIDDEN_LAYER; i++)
@@ -42,6 +44,7 @@ BPNeuralNetworks::~BPNeuralNetworks()
             for (int j = 0; j < BP_HIDDEN_NODE; j++)
             {
                 delete m_pHiddenLayer[i][j];
+				m_pHiddenLayer[i][j] = nullptr;
             }
         }
         else
@@ -49,6 +52,7 @@ BPNeuralNetworks::~BPNeuralNetworks()
             for (int j = 0; j < BP_HIDDEN_NODE; j++)
             {
                 delete m_pHiddenLayer[i][j];
+				m_pHiddenLayer[i][j] = nullptr;
             }
         }
     }
@@ -56,6 +60,7 @@ BPNeuralNetworks::~BPNeuralNetworks()
     for (int i = 0; i < BP_OUTPUT_NODE; i++)
     {
         delete m_pOutputLayer[i];
+		m_pOutputLayer[i] = nullptr;
     }
 }
 
@@ -547,6 +552,7 @@ GAIndividual::GAIndividual(QObject *parent, const samples inputAndOutputList) : 
 GAIndividual::~GAIndividual()
 {
     delete m_pGABPNeuralNetwork;
+	m_pGABPNeuralNetwork = nullptr;
 }
 
 void GAIndividual::calcFitness()
@@ -712,7 +718,8 @@ GAPopulation::~GAPopulation()
 {
     for (int i = 0; i < GA_POPULATION_SCALE; i++)
     {
-        delete m_oPopulationGroup[i];
+		delete m_oPopulationGroup[i];
+		m_oPopulationGroup[i] = nullptr;
     }
 }
 
@@ -781,6 +788,7 @@ void GAPopulation::selection()
 						m_oPopulationGroup[index] = NULL;
 					}
 				}
+				needFreeIndividual = nullptr;
 			}
 		}
 	}
@@ -883,7 +891,8 @@ void GAPopulation::cross()
             }
             else
             {
-                delete newIndividual1;
+				delete newIndividual1;
+				newIndividual1 = nullptr;
             }
 
             if (newIndividual2->getFitness() > m_oPopulationGroup[tempDot2]->getFitness())
@@ -892,7 +901,8 @@ void GAPopulation::cross()
             }
             else
             {
-                delete newIndividual2;
+				delete newIndividual2;
+				newIndividual2 = nullptr;
             }
         }
      }
@@ -957,6 +967,7 @@ void GAPopulation::mutate(void)
             else
             {
                 delete newIndividual;
+				newIndividual = nullptr;
             }
         }
     }
