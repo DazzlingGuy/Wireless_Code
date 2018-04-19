@@ -3,6 +3,7 @@
 
 # Visual Studio 2015 cache files
 .vs/
+moc_*.cpp
 *.ib_pdb_index
 *.idb
 *.ilk
