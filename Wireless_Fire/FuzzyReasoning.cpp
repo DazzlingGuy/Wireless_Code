@@ -12,23 +12,24 @@
 FuzzyReasoning::FuzzyReasoning()
 {
     const double fuzzyRuleList[FUZZY_RULE_ROW][FUZZY_RULE_COLUMN] = { { FUZZY_PS, FUZZY_PS, FUZZY_PS, FUZZY_PS },
-																	  { FUZZY_PS, FUZZY_PM, FUZZY_PS, FUZZY_PS },
-																	  { FUZZY_PS, FUZZY_PB, FUZZY_PS, FUZZY_PS },
-																	  { FUZZY_PS, FUZZY_PS, FUZZY_PB, FUZZY_PS },
-																	  { FUZZY_PS, FUZZY_PM, FUZZY_PB, FUZZY_PB },
-																	  { FUZZY_PS, FUZZY_PB, FUZZY_PB, FUZZY_PB },
-																	  { FUZZY_PS, FUZZY_PS, FUZZY_PS, FUZZY_PS },
-																	  { FUZZY_PM, FUZZY_PM, FUZZY_PS, FUZZY_PB },
-																	  { FUZZY_PM, FUZZY_PS, FUZZY_PB, FUZZY_PB },
-																	  { FUZZY_PM, FUZZY_PM, FUZZY_PB, FUZZY_PB },
-																	  { FUZZY_PB, FUZZY_PS, FUZZY_PS, FUZZY_PS },
-																	  { FUZZY_PB, FUZZY_PS, FUZZY_PB, FUZZY_PB } };
+                                                                      { FUZZY_PS, FUZZY_PM, FUZZY_PS, FUZZY_PS },
+                                                                      { FUZZY_PS, FUZZY_PB, FUZZY_PS, FUZZY_PS },
+                                                                      { FUZZY_PS, FUZZY_PS, FUZZY_PB, FUZZY_PS },
+                                                                      { FUZZY_PS, FUZZY_PM, FUZZY_PB, FUZZY_PB },
+                                                                      { FUZZY_PS, FUZZY_PB, FUZZY_PB, FUZZY_PB },
+                                                                      { FUZZY_PS, FUZZY_PS, FUZZY_PS, FUZZY_PS },
+                                                                      { FUZZY_PM, FUZZY_PM, FUZZY_PS, FUZZY_PB },
+                                                                      { FUZZY_PM, FUZZY_PS, FUZZY_PB, FUZZY_PB },
+                                                                      { FUZZY_PM, FUZZY_PM, FUZZY_PB, FUZZY_PB },
+                                                                      { FUZZY_PB, FUZZY_PS, FUZZY_PS, FUZZY_PS },
+                                                                      { FUZZY_PB, FUZZY_PS, FUZZY_PB, FUZZY_PB } };
+
     setMembershipRule(fuzzyRuleList);   //Fuzzy inference algorithm rules written
 }
 
 FuzzyReasoning::~FuzzyReasoning()
 {
-    cout << "FuzzyReasoning destruct!" << endl;
+    //TODO: Destruct
 }
 
 double FuzzyReasoning::triangleMembership(const double value, const double min, const double middle, const double max)

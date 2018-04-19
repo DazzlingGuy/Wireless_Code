@@ -26,7 +26,7 @@ UartCollector::UartCollector() :
 	m_sPredictValue.outputValue.clear();
 
     /* According to the description, initialize the serial port information */
-	QSerialPortInfo *serialInfo = new QSerialPortInfo();
+	QSerialPortInfo *serialInfo;
 	QList<QSerialPortInfo> serialList = serialInfo->availablePorts();
 	foreach(QSerialPortInfo winPort, serialList)
 	{

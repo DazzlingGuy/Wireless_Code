@@ -54,6 +54,7 @@ void ServiceUartThread::run()
 
 #ifdef _TEST
             emit m_pCollector->testSignal();
+            while (!m_pCollector->getPredictStatus());
 #endif //_TEST
 
             if (m_pCollector->getPredictStatus())
@@ -95,6 +96,7 @@ void ServiceUartThread::run()
                     }
                     fuzzyReasoning->finalDecision(fuzzySingleRule);    //Final decision is get the fuzzy rules' final status to current final status.
                     cout << "FinalStatus = " << fuzzySingleRule.finalStatus << endl;
+                    delete fuzzyReasoning;
                 }
 
 				m_pCollector->clearPredictValueList();
