@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>ds18b20/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>322</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1032</ColumnWidth1><ColumnWidth2>275</ColumnWidth2><ColumnWidth3>68</ColumnWidth3></Build>
+      <TerminalIO/>
+    <Debug-Log><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1377</ColumnWidth1></Debug-Log></Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-11297-10087</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>ds18b20</ExpandedNode><ExpandedNode>ds18b20/Output</ExpandedNode><ExpandedNode>ds18b20/ds18b20.c</ExpandedNode><ExpandedNode>ds18b20/main.c</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-32271-10104</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        <Tab><Identity>TabID-14895-19845</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Source\main.c</Filename><XPos>0</XPos><YPos>45</YPos><SelStart>1052</SelStart><SelEnd>1052</SelEnd></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Source\ds18b20.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>376</SelStart><SelEnd>376</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Source\ds18b20.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>178</SelStart><SelEnd>178</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Software\Embedded Workbench 6.0 Evaluation\8051\inc\ioCC2530.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-07781de0><key>iaridepm.enu1</key></Toolbar-07781de0></Sizes></Row0><Row1><Sizes><Toolbar-07803808><key>debuggergui.enu1</key></Toolbar-07803808></Sizes></Row1></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>538</Bottom><Right>396</Right><x>-2</x><y>-2</y><xscreen>398</xscreen><yscreen>201</yscreen><sizeHorzCX>277352</sizeHorzCX><sizeHorzCY>236471</sizeHorzCY><sizeVertCX>277352</sizeVertCX><sizeVertCY>635294</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>267</Bottom><Right>1437</Right><x>-2</x><y>-2</y><xscreen>1439</xscreen><yscreen>269</yscreen><sizeHorzCX>1002787</sizeHorzCX><sizeHorzCY>316471</sizeHorzCY><sizeVertCX>277352</sizeVertCX><sizeVertCY>236471</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+
