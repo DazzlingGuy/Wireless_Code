@@ -20,7 +20,7 @@
 #define BP_ZERO             0.f  
 #define BP_MAX              100.f
 
-#define BP_TRAIN_NUMBER		20
+#define BP_TRAIN_NUMBER		38
 #define BP_TESE_NUMBER		6
 
 #define BP_RATE_THRESHOLD	0.0001
