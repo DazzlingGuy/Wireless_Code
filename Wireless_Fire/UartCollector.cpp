@@ -202,13 +202,13 @@ double UartCollector::normalization(double value, UartValueType type)
 	switch (type)
 	{
 	case Temperature:
-		result = double(value / 125.0);
+		result = double((value) / (125));
 		break;
 	case CGGas:
-		result = double(value / 127.0);
+		result = double((value) / (127));
 		break;
 	case COGas:
-		result = double(value / 127.0);
+		result = double((value) / (127));
 		break;
 	default:
 		result = 0.0;

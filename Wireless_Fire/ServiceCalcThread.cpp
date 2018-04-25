@@ -33,6 +33,7 @@ samples ServiceCalcThread::getLearnValueList()
     doubles sampleInput[BP_TRAIN_NUMBER];
     doubles sampleOutput[BP_TRAIN_NUMBER];
 
+	/* Thesis conclusion */
     sampleInput[0].push_back(1);        sampleInput[0].push_back(0.2);      sampleInput[0].push_back(0.9);
     sampleOutput[0].push_back(0);       sampleOutput[0].push_back(0.05);    sampleOutput[0].push_back(0.95);
 
@@ -57,10 +58,10 @@ samples ServiceCalcThread::getLearnValueList()
     sampleInput[7].push_back(0.925);    sampleInput[7].push_back(0.18);     sampleInput[7].push_back(0.25);
     sampleOutput[7].push_back(0.1);     sampleOutput[7].push_back(0.1);     sampleOutput[7].push_back(0.8);
 
-    sampleInput[8].push_back(0.6);      sampleInput[8].push_back(1);        sampleInput[8].push_back(0.5);
+    sampleInput[8].push_back(0.6);      sampleInput[8].push_back(0.1);		sampleInput[8].push_back(0.5);
     sampleOutput[8].push_back(0.7);     sampleOutput[8].push_back(0.1);     sampleOutput[8].push_back(0.2);
 
-    sampleInput[9].push_back(1);        sampleInput[9].push_back(1);        sampleInput[9].push_back(0.75);
+    sampleInput[9].push_back(1);        sampleInput[9].push_back(0.1);		sampleInput[9].push_back(0.75);
     sampleOutput[9].push_back(0.7);     sampleOutput[9].push_back(0.1);     sampleOutput[9].push_back(0.2);
 
     sampleInput[10].push_back(0.45);    sampleInput[10].push_back(0.15);    sampleInput[10].push_back(0.5);
@@ -91,7 +92,64 @@ samples ServiceCalcThread::getLearnValueList()
     sampleOutput[18].push_back(0.85);   sampleOutput[18].push_back(0.1);    sampleOutput[18].push_back(0.05);
 
     sampleInput[19].push_back(0.625);   sampleInput[19].push_back(0.2);     sampleInput[19].push_back(0.5);
-    sampleOutput[19].push_back(0.85);   sampleOutput[19].push_back(0.1);    sampleOutput[19].push_back(0.05);
+	sampleOutput[19].push_back(0.85);   sampleOutput[19].push_back(0.1);    sampleOutput[19].push_back(0.05);
+
+	/* Internet Nymph */
+	sampleInput[20].push_back(0.45);    sampleInput[20].push_back(0.15);    sampleInput[20].push_back(0.5);
+	sampleOutput[20].push_back(0.05);   sampleOutput[20].push_back(0.79);	sampleOutput[20].push_back(0.15);
+
+	sampleInput[21].push_back(0.45);	sampleInput[21].push_back(0.15);	sampleInput[21].push_back(0.65);
+	sampleOutput[21].push_back(0.05);   sampleOutput[21].push_back(0.81);	sampleOutput[21].push_back(0.12);
+
+	sampleInput[22].push_back(0.45);	sampleInput[22].push_back(0.17);	sampleInput[22].push_back(0.75);
+	sampleOutput[22].push_back(0.03);	sampleOutput[22].push_back(0.85);	sampleOutput[22].push_back(0.1);
+
+	sampleInput[23].push_back(0.45);	sampleInput[23].push_back(0.18);	sampleInput[23].push_back(0.75);
+	sampleOutput[23].push_back(0.03);	sampleOutput[23].push_back(0.86);	sampleOutput[23].push_back(0.09);
+
+	sampleInput[24].push_back(0.5);		sampleInput[24].push_back(0.33);	sampleInput[24].push_back(0.75);
+	sampleOutput[24].push_back(0.01);   sampleOutput[24].push_back(0.93);	sampleOutput[24].push_back(0.07);
+
+	sampleInput[25].push_back(0.525);   sampleInput[25].push_back(0.5);		sampleInput[25].push_back(0.75);
+	sampleOutput[25].push_back(0.01);   sampleOutput[25].push_back(0.93);	sampleOutput[25].push_back(0.06);
+
+	sampleInput[26].push_back(0.55);	sampleInput[26].push_back(0.83);	sampleInput[26].push_back(0.75);
+	sampleOutput[26].push_back(0.01);	sampleOutput[26].push_back(0.93);	sampleOutput[26].push_back(0.06);
+
+	/* Internet Nymph */
+	sampleInput[27].push_back(0.9);		sampleInput[27].push_back(0.13);    sampleInput[27].push_back(0.2);
+	sampleOutput[27].push_back(0.09);   sampleOutput[27].push_back(0.09);	sampleOutput[27].push_back(0.8);
+
+	sampleInput[28].push_back(0.925);	sampleInput[28].push_back(0.18);	sampleInput[28].push_back(0.25);
+	sampleOutput[28].push_back(0.1);	sampleOutput[28].push_back(0.09);	sampleOutput[28].push_back(0.8);
+
+	sampleInput[29].push_back(0.975);	sampleInput[29].push_back(0.17);	sampleInput[29].push_back(0.5);
+	sampleOutput[29].push_back(0.05);	sampleOutput[29].push_back(0.10);	sampleOutput[29].push_back(0.85);
+
+	sampleInput[30].push_back(0.975);	sampleInput[30].push_back(0.2);		sampleInput[30].push_back(0.8);
+	sampleOutput[30].push_back(0.01);	sampleOutput[30].push_back(0.08);	sampleOutput[30].push_back(0.9);
+
+	sampleInput[31].push_back(1);		sampleInput[31].push_back(0.22);	sampleInput[31].push_back(0.85);
+	sampleOutput[31].push_back(0.01);   sampleOutput[31].push_back(0.07);	sampleOutput[31].push_back(0.9);
+
+	sampleInput[32].push_back(1);		sampleInput[32].push_back(0.25);	sampleInput[32].push_back(1);
+	sampleOutput[32].push_back(0.07);   sampleOutput[32].push_back(0.04);	sampleOutput[32].push_back(0.9);
+
+	sampleInput[33].push_back(0.9);		sampleInput[33].push_back(0.22);	sampleInput[33].push_back(1);
+	sampleOutput[33].push_back(0.01);	sampleOutput[33].push_back(0.07);	sampleOutput[33].push_back(0.9);
+
+	/* Extreme value */
+	sampleInput[34].push_back(0);		sampleInput[34].push_back(0);		sampleInput[34].push_back(0);
+	sampleOutput[34].push_back(1);		sampleOutput[34].push_back(0);		sampleOutput[34].push_back(0);
+
+	sampleInput[35].push_back(1);		sampleInput[35].push_back(1);		sampleInput[35].push_back(1);
+	sampleOutput[35].push_back(0);		sampleOutput[35].push_back(0);		sampleOutput[35].push_back(1);
+
+	sampleInput[36].push_back(0.8);		sampleInput[36].push_back(0.6);		sampleInput[36].push_back(0.55);
+	sampleOutput[36].push_back(0.05);	sampleOutput[36].push_back(0.15);	sampleOutput[36].push_back(0.8);
+
+	sampleInput[37].push_back(0.9);		sampleInput[37].push_back(0.65);	sampleInput[37].push_back(0.6);
+	sampleOutput[37].push_back(0);		sampleOutput[37].push_back(0.1);	sampleOutput[37].push_back(0.9);
 
     samples learnValueList;
     for (int i = 0; i < BP_TRAIN_NUMBER; i++)
@@ -144,7 +202,6 @@ void ServiceCalcThread::run()
         if (!neuralNetwork->getServiceStatus())
         {
             qDebug() << "Service params error! Reboot the service now!";
-            delete population;
 			population = nullptr;
         }
         else
