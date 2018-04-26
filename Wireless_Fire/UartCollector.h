@@ -18,7 +18,7 @@
 #include <QSerialPortInfo>
 #include "GABPNeuralNetworks.h"
 
-#define UART_OBTAIN_COUNT	 10
+#define UART_OBTAIN_COUNT	 4
 #define ALARM_THRESHOLD		 0.5
 
 //#define _TEST __TEST

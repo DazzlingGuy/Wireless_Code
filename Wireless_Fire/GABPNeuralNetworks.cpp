@@ -388,7 +388,7 @@ void BPNeuralNetworks::training(samples learnValueList, double rateThresholdValu
 			double finalRatePercent  = (double)(m_dPreFinalRate - m_dCurrentFinalRate) / m_dCurrentFinalRate;
 			double finalErrorPercent = (double)(m_dPreFinalError - m_dCurrentFinalError) / m_dCurrentFinalError;
 
-			if (0.01 >= finalRatePercent && 0.01 >= finalErrorPercent)
+			if (0.01 >= finalRatePercent || 0.01 >= finalErrorPercent)
             {
                 if ((2 * rateThresholdValue >= m_dCurrentFinalRate) && (2 * errorThresholdValue >= m_dCurrentFinalError))
                 {

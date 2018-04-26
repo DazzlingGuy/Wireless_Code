@@ -70,10 +70,13 @@ void UartCollector::testUartValue()
     doubles sampleInput[BP_TESE_NUMBER];
     sampleInput[0].push_back(1);        sampleInput[0].push_back(0.2);      sampleInput[0].push_back(0.9);  //except value 0, 0.05, 0.95
     sampleInput[1].push_back(0.9);      sampleInput[1].push_back(0.23);     sampleInput[1].push_back(1);    //except value 0, 0.05, 0.95
-    sampleInput[2].push_back(0);        sampleInput[2].push_back(0);        sampleInput[2].push_back(0);    //custom value
-    sampleInput[3].push_back(0.5);      sampleInput[3].push_back(0.5);      sampleInput[3].push_back(0.5);  //custom value
-    sampleInput[4].push_back(1);        sampleInput[4].push_back(1);        sampleInput[4].push_back(1);    //custom value
-    sampleInput[5].push_back(0.95);     sampleInput[5].push_back(0.2);      sampleInput[5].push_back(0.75); //except value 0.03, 0.1, 0.85
+    sampleInput[2].push_back(0.95);     sampleInput[2].push_back(0.2);      sampleInput[2].push_back(0.75); //except value 0.03, 0.1, 0.85
+    sampleInput[3].push_back(0);        sampleInput[3].push_back(0);        sampleInput[3].push_back(0);    //custom value
+    sampleInput[4].push_back(0.5);		sampleInput[4].push_back(0.5);		sampleInput[4].push_back(0.5);  //custom value
+	sampleInput[5].push_back(1);        sampleInput[5].push_back(1);        sampleInput[5].push_back(1);    //custom value
+	sampleInput[6].push_back(0.25);		sampleInput[6].push_back(0.6);		sampleInput[6].push_back(0.4);  //custom value
+	sampleInput[7].push_back(0.25);		sampleInput[7].push_back(0.4);		sampleInput[7].push_back(0.6);  //custom value
+
     samples learnValueList;
     for (int i = 0; i < BP_TESE_NUMBER; i++)
     {

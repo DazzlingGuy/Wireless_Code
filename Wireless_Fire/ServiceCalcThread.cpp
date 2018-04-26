@@ -58,10 +58,10 @@ samples ServiceCalcThread::getLearnValueList()
     sampleInput[7].push_back(0.925);    sampleInput[7].push_back(0.18);     sampleInput[7].push_back(0.25);
     sampleOutput[7].push_back(0.1);     sampleOutput[7].push_back(0.1);     sampleOutput[7].push_back(0.8);
 
-    sampleInput[8].push_back(0.6);      sampleInput[8].push_back(0.1);		sampleInput[8].push_back(0.5);
+    sampleInput[8].push_back(0.6);      sampleInput[8].push_back(0.1);		sampleInput[8].push_back(0.5);	//modify
     sampleOutput[8].push_back(0.7);     sampleOutput[8].push_back(0.1);     sampleOutput[8].push_back(0.2);
 
-    sampleInput[9].push_back(1);        sampleInput[9].push_back(0.1);		sampleInput[9].push_back(0.75);
+    sampleInput[9].push_back(1);        sampleInput[9].push_back(0.1);		sampleInput[9].push_back(0.75);	//modify
     sampleOutput[9].push_back(0.7);     sampleOutput[9].push_back(0.1);     sampleOutput[9].push_back(0.2);
 
     sampleInput[10].push_back(0.45);    sampleInput[10].push_back(0.15);    sampleInput[10].push_back(0.5);
@@ -138,7 +138,7 @@ samples ServiceCalcThread::getLearnValueList()
 	sampleInput[33].push_back(0.9);		sampleInput[33].push_back(0.22);	sampleInput[33].push_back(1);
 	sampleOutput[33].push_back(0.01);	sampleOutput[33].push_back(0.07);	sampleOutput[33].push_back(0.9);
 
-	/* Extreme value */
+	/* Custom value */
 	sampleInput[34].push_back(0);		sampleInput[34].push_back(0);		sampleInput[34].push_back(0);
 	sampleOutput[34].push_back(1);		sampleOutput[34].push_back(0);		sampleOutput[34].push_back(0);
 
